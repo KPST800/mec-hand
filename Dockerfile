@@ -6,6 +6,9 @@
 
 FROM python:3.6
 
+RUN yum -y install epel-release; yum clean all
+RUN yum -y install python-pip; yum clean all
+
 RUN mkdir /src
 WORKDIR /src
 
@@ -16,6 +19,8 @@ RUN pip install -r requirements.txt
 
 COPY . /src
 RUN pip install .
+
+
 
 ENV LD_LIBRARY_PATH ./:$LD_LIBRARY_PATH
 RUN export LD_LIBRARY_PATH PATH
