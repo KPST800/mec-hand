@@ -1,24 +1,24 @@
 #FROM nvidia/cuda:10.0-base-ubuntu16.04
-FROM centos:7
+#FROM centos:7
 #FROM centos/python-36-centos7
 #USER root
 #MAINTAINER  jeon
 
-#FROM python:3.6
+FROM python:3.6
 
-#RUN mkdir /src
-#WORKDIR /src
+RUN mkdir /src
+WORKDIR /src
 
 #COPY libm.so.6 /lib/libm.so.6
 
-#COPY requirements.txt /src/requirements.txt
-#RUN pip install -r requirements.txt
+COPY requirements.txt /src/requirements.txt
+RUN pip install -r requirements.txt
 
-#COPY . /src
-#RUN pip install .
+COPY . /src
+RUN pip install .
 
-#ENV LD_LIBRARY_PATH ./:$LD_LIBRARY_PATH
-#RUN export LD_LIBRARY_PATH PATH
+ENV LD_LIBRARY_PATH ./:$LD_LIBRARY_PATH
+RUN export LD_LIBRARY_PATH PATH
 
 #RUN LD_LIBRARY_PATH="/opt/root-app/src:$LD_LIBRARY_PATH"
 #RUN export LD_LIBRARY_PATH PATH
@@ -88,16 +88,16 @@ FROM centos:7
 #ENTRYPOINT ["./export.sh"]
 
 #ENV PYTHONPATH=/deploy
-ENV PATH ./:$PATH
-ENV LD_LIBRARY_PATH ./:$LD_LIBRARY_PATH
+#ENV PATH ./:$PATH
+#ENV LD_LIBRARY_PATH ./:$LD_LIBRARY_PATH
 
 
-EXPOSE 5000
+EXPOSE 8080
 
-#CMD ["python3", "app.py"]
+CMD ["python3", "app.py"]
 
 #RUN 
-RUN sed -i 's/exec sudo -E -H -u $NB_USER/exec sudo -E -H -u $NB_USER LD_LIBRARY_PATH=./:$LD_LIBRARY_PATH/' ./export.sh
+#RUN sed -i 's/exec sudo -E -H -u $NB_USER/exec sudo -E -H -u $NB_USER LD_LIBRARY_PATH=./:$LD_LIBRARY_PATH/' ./export.sh
 
 #ENTRYPOINT ["/bin/bash", "$LD_LIBRARY_PATH", python3", "app.py"]
 #ENTRYPOINT ["./export.sh"]
